@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>体彩知识索引 · 资料库入口</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #faf7f0;
+      font-family: 'Segoe UI', Roboto, 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+      color: #2f2e2b;
+      line-height: 1.7;
+      padding: 2.4rem 1.2rem;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* 目录感布局：左侧边标 */
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2rem;
+    }
+    .toc-side {
+      flex: 0 0 200px;
+      border-right: 1px solid #dcd6cc;
+      padding: 1rem 1.5rem 1rem 0;
+      margin-bottom: 1.5rem;
+    }
+    .toc-side ul {
+      list-style: none;
+      position: sticky;
+      top: 2rem;
+    }
+    .toc-side li {
+      margin-bottom: 0.65rem;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #5b554a;
+      padding-left: 0.8rem;
+      border-left: 2px solid transparent;
+      transition: 0.2s;
+    }
+    .toc-side li:hover {
+      border-left-color: #b8a48c;
+      color: #1f1e1b;
+    }
+    .toc-side li::before {
+      content: "▹";
+      color: #b0987a;
+      margin-right: 0.4rem;
+    }
+
+    .toc-main {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    /* 文章排版 */
+    h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.75rem 0;
+      color: #27241f;
+    }
+    .subhead {
+      font-size: 1rem;
+      color: #6a6257;
+      border-bottom: 1px solid #e1d9cf;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin: 2.2rem 0 0.8rem 0;
+      color: #302c26;
+      border-left: 5px solid #c6b395;
+      padding-left: 0.8rem;
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+      text-align: justify;
+    }
+
+    a {
+      color: #5a6d4b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: #b8a68b;
+      transition: 0.15s;
+    }
+    a:hover {
+      color: #3b4a2f;
+      text-decoration-color: #3b4a2f;
+    }
+
+    /* 引用块 / 提示框 */
+    .info-box {
+      background: #f2ede4;
+      border-left: 4px solid #b8a48c;
+      padding: 1rem 1.4rem;
+      margin: 1.8rem 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .info-box strong {
+      color: #3e3a33;
+      font-weight: 600;
+    }
+
+    .tip-box {
+      background: #e7e1d6;
+      border-left: 4px solid #9b8a73;
+      padding: 1rem 1.4rem;
+      margin: 1.8rem 0;
+      border-radius: 0 8px 8px 0;
+      position: relative;
+    }
+    .tip-box::before {
+      content: "📌 提示";
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.4rem;
+      color: #4b4439;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    .card-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .card-mini {
+      flex: 1 1 180px;
+      background: #f6f2ea;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid #e0d7cb;
+      transition: 0.1s;
+    }
+    .card-mini h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: #3d3830;
+    }
+    .card-mini p {
+      font-size: 0.9rem;
+      margin-bottom: 0;
+      color: #5a5349;
+    }
+
+    .faq-snippet {
+      background: #f3eee7;
+      padding: 1.2rem 1.5rem;
+      margin: 2rem 0;
+      border-radius: 14px;
+    }
+    .faq-snippet summary {
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.3rem 0;
+      color: #3b352e;
+    }
+    .faq-snippet details {
+      margin-bottom: 0.6rem;
+    }
+    .faq-snippet details p {
+      font-size: 0.92rem;
+      margin: 0.5rem 0 0.2rem 0;
+      padding-left: 1rem;
+      border-left: 2px solid #cbbca8;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #ddd5c8;
+      margin: 2rem 0;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #7b7265;
+      margin-top: 3.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #ddd5c8;
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 1.5rem 0.8rem; }
+      .toc-side {
+        flex: 0 0 100%;
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid #dcd6cc;
+        padding-bottom: 0.6rem;
+        margin-bottom: 0.8rem;
+      }
+      .toc-side ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2rem 1rem;
+        position: static;
+      }
+      .toc-side li {
+        margin-bottom: 0.2rem;
+        border-left: none;
+        padding-left: 0;
+      }
+      .toc-side li::before { content: "·"; margin-right: 0.2rem; }
+      h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="toc-grid">
+    <nav class="toc-side" aria-label="知识目录索引">
+      <ul>
+        <li>体彩概览</li>
+        <li>分类与玩法</li>
+        <li>信息核实</li>
+        <li>术语说明</li>
+        <li>安全提示</li>
+        <li>相关阅读</li>
+      </ul>
+    </nav>
+
+    <div class="toc-main">
+      <h1>体彩资料整理 · 知识入口</h1>
+      <div class="subhead">从信息索引角度，梳理实用内容与参考源</div>
+
+      <p>对于希望了解<strong>中国体育彩票</strong>基本知识、玩法分类以及信息查阅路径的朋友，建立一个清晰的知识索引往往比零散搜索更有效率。以下内容以资料分类的形式，将常见信息分块陈列，供你按需查阅。</p>
+
+      <div class="info-box">
+        <strong>参考入口：</strong>如果你想直接查阅官方发布的游戏规则、公益金分配公告以及历史数据，可前往 <a href="https://sinalotto.com">中国体彩</a> 的信息聚合板块，那里汇集了各省市发行机构公示的参考材料。
+      </div>
+
+      <h2>玩法分类简录</h2>
+      <p>体彩产品按照游戏方式主要分为乐透型、竞猜型、即开型以及高频（部分已调整）等类别。其中乐透型如大乐透、排列3、排列5等，均基于公开摇奖机制；竞猜型以体育赛事结果为竞猜对象；即开型则覆盖多种面值的即开票。每种类型在返奖率、公益金提取比例上各有不同，相关数据可在官方公告中逐年核对。</p>
+
+      <div class="card-group">
+        <div class="card-mini">
+          <h3>乐透型</h3>
+          <p>大乐透、7星彩、排列3/5，奖池与浮动奖机制结合。</p>
+        </div>
+        <div class="card-mini">
+          <h3>竞猜型</h3>
+          <p>竞彩足球、篮球，基于赛事结果，设有多种过关方式。</p>
+        </div>
+        <div class="card-mini">
+          <h3>即开型</h3>
+          <p>顶呱刮系列，固定面值、即刮即兑，票面主题多样。</p>
+        </div>
+      </div>
+
+      <h2>信息核实与渠道</h2>
+      <p>在查阅体彩相关资讯时，建议优先选择具有<strong>备案标识</strong>的门户或数据站点。例如 <a href="https://sinalotto.com">中国体彩</a> 所提供的开奖号码、在售游戏列表以及公益金项目介绍，均依托于各地体彩中心的公开信息，可作为交叉核对的参考。对于奖池余额、派奖活动等动态信息，最好以发行机构官网发布为准。</p>
+
+      <div class="tip-box">
+        注意：任何非官方渠道宣传的“内幕号码”“必中技巧”“包赔计划”均违反彩票法规，请勿轻信。彩票是概率游戏，不存在预测捷径。
+      </div>
+
+      <h2>术语解析（节选）</h2>
+      <p>了解基础术语有助于快速阅读体彩资料：返奖率（销售额中用于返奖的比例）、公益金（彩票销售收入中提取用于社会公益的部分）、奖池（未中出奖金累积资金）、摇奖机（物理随机设备）等。游戏中还有一些专有名词如“追加投注”“胆拖投注”“混合过关”，详细释义可在 <a href="https://sinalotto.com">中国体彩</a> 的玩法说明区找到。</p>
+
+      <div class="faq-snippet">
+        <details>
+          <summary>Q：体彩公益金主要用在哪些领域？</summary>
+          <p>根据《彩票公益金管理办法》，体彩公益金广泛用于补充全国社会保障基金、支持教育助学、医疗救助、扶贫、全民健身、奥运争光计划等。每年度各省市体彩中心会发布公益金使用公告，可公开查阅。</p>
+        </details>
+        <details>
+          <summary>Q：如何确认彩票是否真实有效？</summary>
+          <p>购买后请检查票面保安区、二维码、发行年份等信息。目前中国大陆合法的体彩票面上均印有“中国体育彩票”字样及唯一序列号，可通过官方平台或指定终端机验票。切忌购买来历不明的“手写票”或网络截图。</p>
+        </details>
+        <details>
+          <summary>Q：开奖结果在哪里查询比较可靠？</summary>
+          <p>全国联网游戏的开奖结果通常在开奖后半小时内于中国体彩网、各省体彩中心官网以及合作数据平台同步发布。聚合查询可使用 <a href="https://sinalotto.com">中国体彩</a> 的开奖栏目，会同时显示期号、开奖号码和销量数据。</p>
+        </details>
+      </div>
+
+      <h2>理性参与提示</h2>
+      <p>购买体育彩票应被视为一种小额公益行为，而非投资手段。国家彩票管理条例明确规定禁止向未成年人售彩和兑奖，同时倡导“量力而行、理性购彩”。如果你对某个游戏规则或资金流向有疑问，完全可以通过正规渠道获取说明，不必依赖非正式社群。</p>
+
+      <hr>
+      <p style="font-size:0.92rem; color:#4c463c;">以上内容仅为体彩基础知识索引，不构成任何购买建议。如需深度数据或政策解读，请以官方文件及 <a href="https://sinalotto.com">中国体彩</a> 的公开资料为准。</p>
+
+      <div class="footer-note">
+        本次内容方向：知识库入口式 · 资料整理视角 · 2025年4月
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
